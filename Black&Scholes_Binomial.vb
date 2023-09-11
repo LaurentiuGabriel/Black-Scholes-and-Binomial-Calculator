@@ -4,27 +4,20 @@ Public Class Form1
     Public Operator2 As String
     Public Operation As Char
     Public Result As String
+    Private Const B0 As Double = 0.2316419
+    Private Const B1 As Double = 0.31938153
+    Private Const B2 As Double = -0.356563782
+    Private Const B3 As Double = 1.781477937
+    Private Const B4 As Double = -1.821255978
+    Private Const B5 As Double = 1.330274429
 
-    Public Function Norm(ByVal z As Double) As Double                   ''declares the prerequisites of the normal distribution function used by the Black & Scholes formula
-        Dim normsdistval As Double
-        normsdistval = 1 / (Math.Sqrt(2 * Math.PI)) * Math.Exp(-Math.Pow(z, 2) / 2)
-        Return normsdistval
+   Private Function Norm(ByVal z As Double) As Double
+        Return 1 / (Math.Sqrt(2 * Math.PI)) * Math.Exp(-Math.Pow(z, 2) / 2)
     End Function
 
-    Public Function NormDist(ByVal x As Double) As Double                 ''holds the alghorithm of the normal distribution function
-        Const b0 As Double = 0.2316419
-        Const b1 As Double = 0.31938153
-        Const b2 As Double = -0.356563782
-        Const b3 As Double = 1.781477937
-        Const b4 As Double = -1.821255978
-        Dim b5 As Double
-        b5 = 1.330274429
-        Dim t As Double
-        t = 1 / (1 + b0 * x)
-        Dim sigma As Double
-        sigma = 1 - Norm(x) * (b1 * t + b2 * Math.Pow(t, 2) + b3 * Math.Pow(t, 3) + b4 * Math.Pow(t, 4) + b5 * Math.Pow(t, 5))
-        Return sigma
-
+    Private Function NormDist(ByVal x As Double) As Double
+        Dim t As Double = 1 / (1 + B0 * x)
+        Return 1 - Norm(x) * (B1 * t + B2 * t^2 + B3 * t^3 + B4 * t^4 + B5 * t^5)
     End Function
 
 
